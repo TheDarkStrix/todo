@@ -8,6 +8,7 @@
   border-radius: 6px;
   overflow: hidden;
   position: relative;
+  margin-bottom: 2em;
 }
 
 .date {
@@ -40,10 +41,25 @@
   cursor: pointer;
 }
 
+.editButton {
+  position: absolute;
+  top: 10px;
+  right: 50px;
+  background-color: blue;
+  color: white;
+  padding: 3px 6px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
 .deleteButton:hover {
   background-color: black;
 }
 
-.deleteIcon {
+.deleteIcon,
+.editIcon {
   width: 18px;
 }
