@@ -9,14 +9,30 @@ import {
   FormGroup,
   Input,
 } from "reactstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const CreatePost = ({ modal, toggle, updatePost }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+const CreatePost = ({ modal, toggle, updatePost, editProps, editPost }) => {
+  const [title, setTitle] = useState(editProps ? editProps.title : "");
+  const [description, setDescription] = useState(
+    editProps ? editProps.desc : ""
+  );
 
   const sendData = () => {
-    updatePost(title, description);
+    let newDate = new Date();
+    if (editProps) {
+      console.log(editProps.desc, description);
+      editPost({
+        title,
+        desc: description,
+        id: editProps.id,
+
+        date: `${newDate.getDate()} ${newDate.toLocaleString("en", {
+          month: "long",
+        })}, ${newDate.getFullYear()}`,
+      });
+    } else {
+      updatePost(title, description);
+    }
     toggle();
   };
 
@@ -34,6 +50,7 @@ const CreatePost = ({ modal, toggle, updatePost }) => {
                 id="title"
                 placeholder="Enter Title"
                 onChange={(e) => setTitle(e.target.value)}
+                value={title}
               />
             </FormGroup>
             <FormGroup className="mb-4">
@@ -42,6 +59,7 @@ const CreatePost = ({ modal, toggle, updatePost }) => {
                 type="textarea"
                 name="description"
                 id="description"
+                value={description}
                 placeholder="Enter Description"
                 onChange={(e) => setDescription(e.target.value)}
               />
@@ -50,7 +68,7 @@ const CreatePost = ({ modal, toggle, updatePost }) => {
         </ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={() => sendData()}>
-            Create Post
+            {editProps ? "Edit Post" : "Create Post"}
           </Button>
           <Button color="secondary" onClick={toggle}>
             Cancel
