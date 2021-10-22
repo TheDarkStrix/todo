@@ -27,12 +27,7 @@ const Posts = () => {
   };
 
   const editExistingPost = (post) => {
-    console.log(post);
-    let editedPost = postData;
-    const index = postData.findIndex((x) => x.id === post.id);
-    editedPost[index] = post;
-    console.log(editedPost);
-    setPostData(editedPost);
+    update(ref(db, "todo" + `/${post.id}`), post);
   };
 
   const createPost = () => {
