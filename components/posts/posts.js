@@ -64,7 +64,8 @@ const Posts = () => {
       if (data != null) {
         setPostData(Object.values(data));
       } else {
-        setPostData(null);
+        console.log("data", data);
+        setPostData([]);
       }
     });
   }, []);
@@ -76,9 +77,10 @@ const Posts = () => {
           Create Post
         </Button>
       </div>
+
       {!postData ? (
         <div>Loading ...</div>
-      ) : (
+      ) : postData && postData.length > 0 ? (
         <Row>
           {postData &&
             postData.map((post) => (
@@ -118,6 +120,8 @@ const Posts = () => {
               </Col>
             ))}
         </Row>
+      ) : (
+        "No Posts"
       )}
       {openModal ? (
         editModal ? (
@@ -138,7 +142,6 @@ const Posts = () => {
       ) : (
         <></>
       )}
-
       {/* <Api /> */}
     </div>
   );
